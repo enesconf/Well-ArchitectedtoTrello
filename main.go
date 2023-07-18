@@ -16,9 +16,9 @@ type ImprovementSummary struct {
 }
 
 type Workload struct {
-	WorkloadId            string               `json:"WorkloadId"`
-	LensAlias             string               `json:"LensAlias"`
-	LensArn               string               `json:"LensArn"`
+	WorkloadId           string               `json:"WorkloadId"`
+	LensAlias            string               `json:"LensAlias"`
+	LensArn              string               `json:"LensArn"`
 	ImprovementSummaries []ImprovementSummary `json:"ImprovementSummaries"`
 }
 
@@ -56,11 +56,11 @@ func main() {
 
 	for _, summary := range workload.ImprovementSummaries {
 		row := []string{
-			summary.QuestionId,
-			summary.QuestionTitle,
+			summary.PillarId + "-" + summary.QuestionTitle, // Combine PillarId and QuestionTitle for Card Name
+			summary.ImprovementPlanUrl,                     // ImprovementPlanUrl for Card Description
 			summary.Risk,
 			summary.PillarId,
-			summary.ImprovementPlanUrl,
+			"", // Empty as there's no corresponding field in your JSON
 			"", // Empty as there's no corresponding field in your JSON
 		}
 		err = writer.Write(row)
@@ -70,4 +70,3 @@ func main() {
 		}
 	}
 }
-
