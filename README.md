@@ -21,7 +21,7 @@ This project automates the creation of Trello tasks from AWS Well-Architected wo
 2. List high risk lens-review improvements for a specific workload:
 
     ```bash
-aws wellarchitected list-lens-review-improvements --workload-id $(workload-id) --lens-alias wellarchitected --max-results 100 --output json  > improvements.json
+    aws wellarchitected list-lens-review-improvements --workload-id $(workload-id) --lens-alias wellarchitected --max-results 100 --output json  > improvements.json
     ```
 
 3. Filter the improvements with high risk and save it to a new JSON file:
