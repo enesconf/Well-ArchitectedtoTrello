@@ -22,8 +22,23 @@ type Workload struct {
 	ImprovementSummaries []ImprovementSummary `json:"ImprovementSummaries"`
 }
 
+// A helper function that returns the directory where the code is running
+func getCurrentDirectory() string {
+	dir, err := os.Getwd()
+	if err != nil {
+		fmt.Println("Error getting current directory:", err)
+	}
+	return dir
+}
+
 func main() {
-	jsonFile, err := os.Open("/Users/enescetinkaya/Desktop/projects/wellarc/high_risk_improvements.json")
+	// JSON path
+	fmt.Print("Enter the full path to the JSON file (high_risk_improvements.json): ")
+	var jsonFilePath string
+	fmt.Scanln(&jsonFilePath)
+
+	// open JSON file
+	jsonFile, err := os.Open(jsonFilePath)
 	if err != nil {
 		fmt.Println("Error opening JSON file:", err)
 		return
@@ -47,7 +62,6 @@ func main() {
 
 	writer := csv.NewWriter(csvFile)
 	defer writer.Flush()
-
 	err = writer.Write([]string{"Card Name", "Card Description", "Labels", "List Name", "Checklist", "Checklist item"})
 	if err != nil {
 		fmt.Println("Error writing CSV header:", err)
